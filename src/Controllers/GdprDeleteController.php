@@ -49,8 +49,7 @@ class GdprDeleteController extends Controller
         $gdprDeletionRequest->log('received', "Received Gdpr deletion request: " . $gdprDeletionRequest->id);
 
         $deletionJob = (new ProcessGdprDeletionRequestJob($gdprDeletionRequest))
-            ->onQueue(config('gdpr.queue'))
-            ->onConnection(config('gdpr.connection'));
+            ->onQueue(config('gdpr.queue-driver'));
         dispatch($deletionJob);
 
         // TODO:

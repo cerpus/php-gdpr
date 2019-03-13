@@ -1,6 +1,5 @@
 <?php
 return [
     'deletion-class' => Cerpus\Gdpr\DummyDeletion::class,
-    'queue' => env('GDPR_QUEUE', 'default'),
-    'connection' => env('GDPR_QUEUE_CONNECTION', 'default')
+    'queue-driver' => env('GDPR_QUEUE_DRIVER', env('QUEUE_DRIVER', 'sync')),
 ];
