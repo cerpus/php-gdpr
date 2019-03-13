@@ -46,11 +46,8 @@ return [
 
 The `delete` method will receive a `GdprDeletionRequest` as parameter. The request itself is in $deletionRequest->payload and will at least include an AuthId (userId).
 
-You can log the progress of the deletion using `$deletionRequest->log('processing', <your message here>);`
+You should log the progress of the deletion using `$deletionRequest->log('processing', <your message here>);` at appropriate times.
 
-When the deletion request is finished you MUST add a log with the status `finished` like so:
-
-`$deletionRequest->log('finished', <A message can be included if you want>);`
 
  
 
