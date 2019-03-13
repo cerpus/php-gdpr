@@ -1,0 +1,49 @@
+{
+  "name": "cerpus/gdpr",
+  "description": "A package that helps with implementing GDPR compliance in the EdLib ecosystem",
+  "type": "project",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Odd-Arne Johansen",
+      "email": "odd-arne.johansen@cerpus.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Cerpus\\Gdpr\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Cerpus\\Gdpr\\Test\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0",
+    "league/fractal": "^0.17.0",
+    "illuminate/http": ">=5.2",
+    "illuminate/support": ">=5.2",
+    "illuminate/routing": ">=5.2",
+    "illuminate/pagination": ">=5.2",
+    "illuminate/database": ">=5.2",
+    "ramsey/uuid": "^3.8",
+    "illuminate/bus": ">=5.2",
+    "illuminate/queue": ">=5.2"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Cerpus\\Gdpr\\GdprServiceProvider"
+      ]
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5",
+    "orchestra/testbench": "^3.5",
+    "orchestra/database": "^3.5",
+    "fzaninotto/faker": "^1.8",
+    "mockery/mockery": "^1.2"
+  }
+}
