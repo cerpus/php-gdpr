@@ -10,7 +10,7 @@ If you are running on Laravel 5.4 or less you must add the service provider to `
 ```php
 'providers' => [
     ...
-    Cerpus\Gdpr\ServiceProvider::class,
+    Cerpus\Gdpr\GdprServiceProvider::class,
 
 ];
 ```
