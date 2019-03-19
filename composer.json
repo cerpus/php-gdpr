@@ -30,7 +30,9 @@
     "illuminate/database": ">=5.2",
     "ramsey/uuid": "^3.8",
     "illuminate/bus": ">=5.2",
-    "illuminate/queue": ">=5.2"
+    "illuminate/queue": ">=5.2",
+    "cerpus/laravel-auth": ">=0.19",
+    "nesbot/carbon": "~1.0"
   },
   "extra": {
     "laravel": {
@@ -45,5 +47,15 @@
     "orchestra/database": "^3.5",
     "fzaninotto/faker": "^1.8",
     "mockery/mockery": "^1.2"
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://composer.cerpus.net/"
+    },
+    {
+      "type": "composer",
+      "url": "https://composer-3rdparty.cerpus.net/"
+    }
+  ]
 }

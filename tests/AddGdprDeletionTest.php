@@ -6,11 +6,15 @@ use Illuminate\Http\Response;
 use Cerpus\Gdpr\Models\GdprDeletionRequest;
 use Illuminate\Foundation\Testing\TestResponse;
 use Cerpus\Gdpr\Jobs\ProcessGdprDeletionRequestJob;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class AddGdprDeletionTest extends TestCase
 {
+    use WithoutMiddleware;
+
     public function testRouteExist()
     {
+        $this->withoutMiddleware();
         $route = route('gdpr.store');
         $path = parse_url($route, PHP_URL_PATH);
         $this->assertEquals('/api/gdpr/delete', $path);
@@ -18,6 +22,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testYouCanStoreANewRequest()
     {
+        $this->withoutMiddleware();
         $this->expectsJobs(ProcessGdprDeletionRequestJob::class);
 
         $payload = [
@@ -47,6 +52,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testYouMustUseAnUniqueIdWhenCreatingADeletionRequest()
     {
+        $this->withoutMiddleware();
         $this->doesntExpectJobs(ProcessGdprDeletionRequestJob::class);
         $firstEvent = factory(GdprDeletionRequest::class)->create();
 
@@ -65,6 +71,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testTheRequestMustContainRequestIdAndUserId()
     {
+        $this->withoutMiddleware();
         $this->doesntExpectJobs(ProcessGdprDeletionRequestJob::class);
 
         $payload = [
@@ -83,6 +90,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testFormatOfResponseNoRequests()
     {
+        $this->withoutMiddleware();
         $response = $this->get(route('gdpr.index'));
 
         $response->assertStatus(Response::HTTP_OK);
@@ -92,6 +100,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testFormatOfResponseOneResponse()
     {
+        $this->withoutMiddleware();
         $payload = [
             'deletionRequestId' => $this->faker->uuid,
             'userId' => $this->faker->uuid,
@@ -118,6 +127,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testFormatOfResponseMultipleResponses()
     {
+        $this->withoutMiddleware();
         for ($i = 0; $i < 2; $i++) {
             $payload = [
                 'deletionRequestId' => $this->faker->uuid,
@@ -150,6 +160,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testResponseOfOneDeletionRequest()
     {
+        $this->withoutMiddleware();
         $payload = [
             'deletionRequestId' => $this->faker->uuid,
             'userId' => $this->faker->uuid,
@@ -177,6 +188,7 @@ class AddGdprDeletionTest extends TestCase
 
     public function testResponseOfOneDeletionRequestDoesNotExist()
     {
+        $this->withoutMiddleware();
         $response = $this->get(route('gdpr.show', 1));
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);

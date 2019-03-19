@@ -11,6 +11,7 @@ use League\Fractal\Resource\Collection;
 use Cerpus\Gdpr\Requests\DeletionRequest;
 use Cerpus\Gdpr\Serializers\GdprSerializer;
 use Cerpus\Gdpr\Models\GdprDeletionRequest;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Cerpus\Gdpr\Jobs\ProcessGdprDeletionRequestJob;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -18,7 +19,7 @@ use Cerpus\Gdpr\Transformers\GdprDeletionRequestTransformer;
 
 class GdprDeleteController extends Controller
 {
-    use ValidatesRequests, AuthorizesRequests;
+    use ValidatesRequests, DispatchesJobs, AuthorizesRequests;
 
     protected $fractal;
 
@@ -46,20 +47,22 @@ class GdprDeleteController extends Controller
         $gdprDeletionRequest->id = $payload->deletionRequestId;
         $gdprDeletionRequest->payload = $payload;
         $gdprDeletionRequest->save();
-        $gdprDeletionRequest->log('received', "Received Gdpr deletion request: " . $gdprDeletionRequest->id);
+        $gdprDeletionRequest->log('received', "Received GDPR deletion request: " . $gdprDeletionRequest->id);
 
-        $deletionJob = (new ProcessGdprDeletionRequestJob($gdprDeletionRequest))
-            ->onQueue(config('gdpr.queue-driver'));
+        $deletionJob = (new ProcessGdprDeletionRequestJob($gdprDeletionRequest))->onConnection(config('gdpr.queue-driver'));
         dispatch($deletionJob);
 
-        // TODO:
-        // Detect if the job is using the sync driver or really queued and adjust response based on this
+        $responseCode = Response::HTTP_ACCEPTED;
+        $queueDriver = config('gdpr.queue-driver', '');
+        if (in_array($queueDriver, ['sync'])) {
+            $responseCode = Response::HTTP_OK;
+        }
 
         $gdprDeletionRequest = $gdprDeletionRequest->fresh('logs');
         $gdprDeletionRequestItem = new Item($gdprDeletionRequest, new GdprDeletionRequestTransformer);
         $response = $this->fractal->createData($gdprDeletionRequestItem)->toArray();
 
-        return response()->json($response, Response::HTTP_ACCEPTED);
+        return response()->json($response, $responseCode);
     }
 
     public function show(Request $request, $id)
