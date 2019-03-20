@@ -31,7 +31,7 @@
     "ramsey/uuid": "^3.8",
     "illuminate/bus": ">=5.2",
     "illuminate/queue": ">=5.2",
-    "cerpus/laravel-auth": ">=0.19@dev",
+    "cerpus/laravel-auth": "*",
     "nesbot/carbon": "~1.0"
   },
   "extra": {
