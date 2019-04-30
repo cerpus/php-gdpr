@@ -22,7 +22,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.0",
-    "league/fractal": "^0.13.0",
+    "league/fractal": ">=0.13",
     "illuminate/http": ">=5.2",
     "illuminate/support": ">=5.2",
     "illuminate/routing": ">=5.2",
