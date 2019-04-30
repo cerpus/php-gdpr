@@ -49,7 +49,7 @@ class GdprDeleteController extends Controller
         $gdprDeletionRequest->save();
         $gdprDeletionRequest->log('received', "Received GDPR deletion request: " . $gdprDeletionRequest->id);
 
-        $deletionJob = (new ProcessGdprDeletionRequestJob($gdprDeletionRequest))->onQueue(config('gdpr.queue-driver'));
+        $deletionJob = (new ProcessGdprDeletionRequestJob($gdprDeletionRequest))->onQueue(config('gdpr.queue'));
         dispatch($deletionJob);
 
         $responseCode = Response::HTTP_ACCEPTED;
