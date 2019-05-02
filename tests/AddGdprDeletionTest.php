@@ -198,4 +198,37 @@ class AddGdprDeletionTest extends TestCase
             'message' => "Deletion request with id '1' not found."
         ]);
     }
+
+    public function testTimeStampsAreUnixFormatted()
+    {
+        $this->withoutMiddleware();
+        $payload = [
+            'deletionRequestId' => $this->faker->uuid,
+            'userId' => $this->faker->uuid,
+        ];
+        $this->json('POST', route('gdpr.store'), $payload);
+
+        $response = $this->get(route('gdpr.show', $payload['deletionRequestId']));
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertHeader('Content-Type', 'application/json');
+        $response->assertJsonStructure([
+            'deletionRequestId',
+            'status',
+            'since',
+            'events' => [
+                '*' => [
+                    'status',
+                    'message',
+                    'startTs',
+                    'endTs',
+                ]
+            ]
+        ]);
+
+        $responseJson = json_decode($response->getContent());
+        $this->assertTrue(is_integer($responseJson->since));
+        $this->assertTrue(is_integer($responseJson->events[0]->startTs));
+        $this->assertTrue(is_integer($responseJson->events[0]->endTs));
+    }
 }

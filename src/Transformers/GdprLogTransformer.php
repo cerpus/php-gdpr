@@ -12,8 +12,8 @@ class GdprLogTransformer extends TransformerAbstract
         return [
             'status' => $log->status,
             'message' => $log->message,
-            'startTs' => $log->created_at->toIso8601ZuluString(),
-            'endTs' => $log->updated_at->toIso8601ZuluString(),
+            'startTs' => (int)$log->created_at->format('U'),
+            'endTs' => (int)$log->updated_at->format('U'),
         ];
     }
 }

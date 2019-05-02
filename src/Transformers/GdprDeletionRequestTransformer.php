@@ -18,7 +18,7 @@ class GdprDeletionRequestTransformer extends TransformerAbstract
         return [
             'deletionRequestId' => (string)$request->id,
             'status' => $mostRecentEvent->status ?? null,
-            'since' => ($mostRecentEvent->created_at ?? null) ? $mostRecentEvent->created_at->toIso8601ZuluString() : null,
+            'since' => ($mostRecentEvent->created_at ?? null) ? (int)$mostRecentEvent->created_at->format('U') : null,
         ];
     }
 
