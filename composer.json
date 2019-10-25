@@ -28,11 +28,11 @@
     "illuminate/routing": ">=5.2",
     "illuminate/pagination": ">=5.2",
     "illuminate/database": ">=5.2",
-    "ramsey/uuid": "^3.8",
+    "ramsey/uuid": ">=3.8",
     "illuminate/bus": ">=5.2",
     "illuminate/queue": ">=5.2",
     "cerpus/laravel-auth": "*",
-    "nesbot/carbon": "~1.0"
+    "nesbot/carbon": "^1.0||^2.0"
   },
   "extra": {
     "laravel": {
