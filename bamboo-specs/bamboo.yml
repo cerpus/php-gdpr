@@ -1,0 +1,47 @@
+---
+version: 2
+plan:
+  project-key: BCP
+  key: CGDPR
+  name: cerpus-gdpr
+
+stages:
+  - Test:
+      - Build Docker image and test
+  - Package:
+      - Create Composer package
+
+Build Docker image and test:
+  tasks:
+    - script: |
+        #!/bin/bash
+
+        set -eux
+
+        dockertag="cerpus-gdpr-test:${bamboo.planKey}-${bamboo.buildNumber}"
+        docker build --tag "$dockertagtest" .
+
+        rm -rf test-results || true
+        mkdir -p test-results
+        docker run --rm --name "phpunit-${bamboo.planKey}-${bamboo.buildNumber}" --volume "$PWD/test-results:/test-results" $dockertag
+  final-tasks:
+    - test-parser:
+        type: junit
+        test-results: test-results/test-report.xml
+    - script: |
+        rm -r test-results
+  requirements:
+    - Docker
+
+Create Composer package:
+  tasks:
+    - script:
+        - apk add git
+        - git archive --format=tgz "${bamboo.planRepository.revision}" > cerpus-gdpr.tar.gz
+  artifacts:
+    - name: cerpus-gdpr.tar.gz
+      location: ./
+      pattern: cerpus-gdpr.tar.gz
+      required: true
+      shared: true
+  docker: alpine
