@@ -9,7 +9,7 @@ COPY . .
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN set -eux; apt-get update; apt-get -y install unzip git php-cli php-mbstring php-xml; composer install --no-progress --prefer-dist; chmod +x /app/run-tests.sh
+RUN set -eux; apt-get update; apt-get -y install unzip git php-cli php-mbstring php-xml php-sqlite; composer install --no-progress --prefer-dist; chmod +x /app/run-tests.sh
 
 VOLUME /test-results
 
