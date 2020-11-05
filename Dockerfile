@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as test
+FROM ubuntu:16.04 as test
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -9,7 +9,7 @@ COPY . .
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN set -eux; apt-get update; apt-get -y install php-cli php-mbstring php-xml; composer install --no-progress --prefer-dist
+RUN set -eux; apt-get update; apt-get -y install git php-cli php-mbstring php-xml; composer install --no-progress --prefer-dist
 
 VOLUME /test-results
 
