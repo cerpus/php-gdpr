@@ -9,7 +9,7 @@ COPY . .
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN set -eux; apt-get update; apt-get -y install git php-cli php-mbstring php-xml; composer install --no-progress --prefer-dist
+RUN set -eux; apt-get update; apt-get -y install unzip git php-cli php-mbstring php-xml; composer install --no-progress --prefer-dist
 
 VOLUME /test-results
 
