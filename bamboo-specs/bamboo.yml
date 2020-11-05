@@ -19,7 +19,7 @@ Build Docker image and test:
         set -eux
 
         dockertag="cerpus-gdpr-test:${bamboo.planKey}-${bamboo.buildNumber}"
-        docker build --tag "$dockertagtest" .
+        docker build --tag "$dockertag" .
 
         rm -rf test-results || true
         mkdir -p test-results
