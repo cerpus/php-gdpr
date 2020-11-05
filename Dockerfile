@@ -1,5 +1,7 @@
 FROM ubuntu:18.04 as test
 
+ENV DEBIAN_FRONTEND noninteractive
+
 WORKDIR /app
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
