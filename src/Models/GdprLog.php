@@ -11,6 +11,7 @@ class GdprLog extends Model
     protected $touches = ['deletionRequest'];
 
     public $incrementing = false;
+    protected $keyType = 'string';
 
     protected static function boot()
     {

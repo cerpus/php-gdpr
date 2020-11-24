@@ -9,6 +9,7 @@ use Cerpus\Gdpr\Models\Scopes\UpdatedDescendingScope;
 class GdprDeletionRequest extends Model
 {
     public $incrementing = false;
+    protected $keyType = 'string';
 
     public static function boot()
     {
