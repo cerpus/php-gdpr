@@ -2,7 +2,7 @@
   "name": "cerpus/gdpr",
   "description": "A package that helps with implementing GDPR compliance in the EdLib ecosystem",
   "type": "project",
-  "license": "proprietary",
+  "license": "GPL-3.0-only",
   "authors": [
     {
       "name": "Odd-Arne Johansen",
@@ -47,15 +47,5 @@
     "orchestra/database": "^3.5",
     "fzaninotto/faker": "^1.8",
     "mockery/mockery": "^1.2"
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://composer.cerpus.net/"
-    },
-    {
-      "type": "composer",
-      "url": "https://composer-3rdparty.cerpus.net/"
-    }
-  ]
+  }
 }

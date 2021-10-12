@@ -40,7 +40,7 @@ As an example if you create a file in `app/Gdpr/GdprDelete.php` you must update 
 ```php
 return [
   'deletion-class' => App\Gdpr\GdprDelete::class,
-  ...  
+  ...
 ];
 ```
 
@@ -48,6 +48,7 @@ The `delete` method will receive a `GdprDeletionRequest` as parameter. The reque
 
 You should log the progress of the deletion using `$deletionRequest->log('processing', <your message here>);` at appropriate times.
 
+## License
 
- 
-
+This package is released under the GNU General Public License 3.0. See the
+`LICENSE` file for more information.
